@@ -1,0 +1,65 @@
+{
+  "name": "Rsq_Calc",
+  "title": "Calculate Rsq for impuated data",
+  "summary": "Calculate Rsq for impuated data case/control separately",
+  "dxapi": "1.0.0",
+  "inputSpec": [
+    {
+      "name": "dose_file",
+      "label": "Impuated dosage file from Minimac",
+      "help": "",
+      "class": "file",
+      "patterns": ["*"],
+      "optional": false
+    },
+    {
+      "name": "ncases",
+      "label": "number of cases",
+      "help": "",
+      "class": "int",
+      "optional": false
+    },
+    {
+      "name": "output_prefix",
+      "label": "Prefix for ouput file",
+      "help": "",
+      "class": "string",
+      "optional": false
+    }
+  ],
+  "outputSpec": [
+    {
+      "name": "results",
+      "help": "",
+      "class": "array:file",
+      "patterns": ["*"]
+    }
+  ],
+  "runSpec": {
+    "interpreter": "bash",
+    "timeoutPolicy": {
+      "*": {
+        "hours": 48
+      }
+    },
+    "distribution": "Ubuntu",
+    "release": "14.04",
+    "file": "src/code.sh"
+  },
+  "access": {
+    "network": [
+      "*"
+    ],
+    "project": "CONTRIBUTE"
+  },
+  "ignoreReuse": false,
+  "regionalOptions": {
+    "aws:us-east-1": {
+      "systemRequirements": {
+        "*": {
+          "instanceType": "mem1_ssd1_x2"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "name": "ER2_filter",
+  "title": "filter genotyped SNPs with EmpRsq<=cutoff",
+  "summary": "filter genotyped SNPs with EmpRsq<=cutoff",
+  "dxapi": "1.0.0",
+  "inputSpec": [
+    {
+      "name": "input_info_file",
+      "label": "input info file with EmpRsq",
+      "help": "",
+      "class": "file",
+      "patterns": ["*"],
+      "optional": false
+    },
+    {
+      "name": "input_phased_file",
+      "label": "input merged phased file in vcf.gz format",
+      "help": "",
+      "class": "file",
+      "patterns": ["*"],
+      "optional": false
+    },
+    {
+      "name": "ER2_cutoff",
+      "label": "cutoff for EmpRsq",
+      "help": "",
+      "class": "float",
+      "optional": true,
+      "default": 0.9
+    },
+    {
+      "name": "output_prefix",
+      "label": "prefix for output file",
+      "help": "",
+      "class": "string",
+      "optional": false
+    }
+  ],
+  "outputSpec": [
+    {
+      "name": "results",
+      "help": "",
+      "class": "array:file",
+      "patterns": ["*"]
+    }
+  ],
+  "runSpec": {
+    "interpreter": "bash",
+    "timeoutPolicy": {
+      "*": {
+        "hours": 48
+      }
+    },
+    "distribution": "Ubuntu",
+    "release": "14.04",
+    "file": "src/code.sh"
+  },
+  "access": {
+    "network": [
+      "*"
+    ],
+    "project": "CONTRIBUTE"
+  },
+  "ignoreReuse": false,
+  "regionalOptions": {
+    "aws:us-east-1": {
+      "systemRequirements": {
+        "*": {
+          "instanceType": "mem1_ssd1_x2"
+        }
+      }
+    }
+  }
+}

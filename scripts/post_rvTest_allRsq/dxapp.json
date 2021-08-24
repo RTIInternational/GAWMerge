@@ -1,0 +1,92 @@
+{
+  "name": "post_rvTest_allRsq",
+  "title": "post rvTest analysis",
+  "summary": "post rvTest analysis",
+  "dxapi": "1.0.0",
+  "inputSpec": [
+    {
+      "name": "prefix_info_rsq",
+      "label": "prefix for all info.rsq files",
+      "help": "",
+      "class": "string",
+      "optional": false
+    },
+    {
+      "name": "prefix_rvtest_assoc",
+      "label": "prefix for all MetaScore.assoc.gz files",
+      "help": "",
+      "class": "string",
+      "optional": false
+    },
+    {
+      "name": "array_chr",
+      "label": "an array for chr names",
+      "help": "",
+      "class": "array:string",
+      "optional": false
+    },
+    {
+      "name": "maf_cut",
+      "label": "cutoff for minor allele frequency",
+      "help": "",
+      "class": "float",
+      "optional": false
+    },
+    {
+      "name": "rsq_cut",
+      "label": "cutoff for Rsq",
+      "help": "",
+      "class": "float",
+      "optional": false
+    },
+    {
+      "name": "rsq_diff_cut",
+      "label": "cutoff for difference in Rsq",
+      "help": "",
+      "class": "float",
+      "optional": false
+    },
+    {
+      "name": "output_prefix",
+      "label": "prefix for output file",
+      "help": "",
+      "class": "string",
+      "optional": false
+    }
+  ],
+  "outputSpec": [
+    {
+      "name": "results",
+      "help": "",
+      "class": "array:file",
+      "patterns": ["*"]
+    }
+  ],
+  "runSpec": {
+    "interpreter": "bash",
+    "timeoutPolicy": {
+      "*": {
+        "hours": 48
+      }
+    },
+    "distribution": "Ubuntu",
+    "release": "14.04",
+    "file": "src/code.sh"
+  },
+  "access": {
+    "network": [
+      "*"
+    ],
+    "project": "CONTRIBUTE"
+  },
+  "ignoreReuse": false,
+  "regionalOptions": {
+    "aws:us-east-1": {
+      "systemRequirements": {
+        "*": {
+          "instanceType": "mem1_ssd1_x2"
+        }
+      }
+    }
+  }
+}

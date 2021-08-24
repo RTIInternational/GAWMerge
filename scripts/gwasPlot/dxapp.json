@@ -1,0 +1,54 @@
+{
+  "name": "gwasPlot",
+  "title": "gwasPlot",
+  "summary": "Plot GWAS QQ and Manhanttan plots",
+  "dxapi": "1.0.0",
+  "inputSpec": [
+    {
+      "name": "input_table",
+      "label": "input table file ",
+      "help": "",
+      "class": "file",
+      "patterns": ["*"],
+      "optional": false
+    },
+    {
+      "name": "output_prefix",
+      "help": "",
+      "class": "string",
+      "optional": false
+    }
+  ],
+  "outputSpec": [
+    {
+      "name": "plots",
+      "help": "",
+      "class": "array:file",
+      "patterns": ["*"]
+    }
+  ],
+  "runSpec": {
+    "interpreter": "bash",
+    "timeoutPolicy": {
+      "*": {
+        "hours": 48
+      }
+    },
+    "distribution": "Ubuntu",
+    "release": "14.04",
+    "file": "src/code.sh"
+  },
+  "access": {
+    "project": "CONTRIBUTE"
+  },
+  "ignoreReuse": false,
+  "regionalOptions": {
+    "aws:us-east-1": {
+      "systemRequirements": {
+        "*": {
+          "instanceType": "mem1_ssd1_x2"
+        }
+      }
+    }
+  }
+}

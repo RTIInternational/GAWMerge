@@ -1,0 +1,22 @@
+{
+  "name": "merging_imputation",
+  "title": "merging_imputation",
+  "stages": [
+    {
+      "id": "stage-Fg6qpg00p56BX7ZxFFq1kgB4",
+      "executable": "applet-Fg6qjx80p566FzFZ923jYjJ2"
+    },
+    {
+      "id": "stage-Fg6qpxQ0p569VfPZB3v4P2xx",
+      "executable": "applet-FYpXXYQ0p560vyV81GzJy316",
+      "input": {
+        "input_haps": {
+          "$dnanexus_link": {
+            "stage": "stage-Fg6qpg00p56BX7ZxFFq1kgB4",
+            "outputField": "merged"
+          }
+        }
+      }
+    }
+  ]
+}

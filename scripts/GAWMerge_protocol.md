@@ -1,6 +1,8 @@
  # GAWMerge General Protocol
 
 **Note all the following analyses were conducted in DNAnexus**
+1. All the commands staring with *dx* are from DNAnexus command line tool *dx-toolkit*;
+2. The command *dx run* will launch an *App* created by DNAnexus *applet*, and we kept all the applets used in this protocol within the same folder.
 
 ## Case sample and public control selection
 
