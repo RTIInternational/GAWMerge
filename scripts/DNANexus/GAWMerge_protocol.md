@@ -171,7 +171,7 @@ dx run /Analyses/COPD_correlation/shapeit2 \
 done
 ```
 
-### Merge phased data and Impute
+## Merge phased data and Impute
 
 ```python
 dx cd $mergeOutputDir
