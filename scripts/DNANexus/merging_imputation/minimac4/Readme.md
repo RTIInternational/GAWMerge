@@ -1,7 +1,7 @@
 <!-- dx-header -->
-# Phasing genotype data (DNAnexus Platform App)
+# Imputation by Mimimac4 from phased vcf file (DNAnexus Platform App)
 
-shapeit
+minimac4
 
 This is the source code for an app that runs on the DNAnexus Platform.
 For more information about how to run or modify it, see

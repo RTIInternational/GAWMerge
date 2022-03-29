@@ -17,8 +17,7 @@
 
 ### Run WGS Data Extraction and QC Workflow
 
-
-```python
+```bash
 # on a cloud Workstation spawned through DNAnexus
 # predefine environmental variables: qcOutputDir, projectName, dataDir
 dx cd $qcOutputDir
@@ -26,10 +25,10 @@ for chr in {1..22}
 do
 echo $chr
 # Run Workflow for WGS Extraction, and QC
-dx run /Analyses/wgs_extraction_qc \
-    -istage-FfqXxVj0p56KJ1Qq2KFxkgqf.input_bcf_file="${projectName}:${dataDir}/freeze.6a.chr${chr}.pass_and_fail.gtonly.minDP10.bcf" \
-    -istage-FfqXxVj0p56KJ1Qq2KFxkgqf.input_csi_file="${projectName}:${dataDir}/freeze.6a.chr${chr}.pass_and_fail.gtonly.minDP10.bcf.csi" \
-    -istage-FfqXxVj0p56KJ1Qq2KFxkgqf.sample_file="${projectName}:${dataDir}/COPDGene_samples_Freeze6a" \
+dx run /GAWMerge/scripts/DNANexus/wgs_extraction_qc \
+    -istage-FfqXxVj0p56KJ1Qq2KFxkgqf.input_bcf_file="<path_to_TOPMed_minDP10_bcf_file>" \
+    -istage-FfqXxVj0p56KJ1Qq2KFxkgqf.input_csi_file="<path_to_TOPMed_minBP10_bcf_csi_file>" \
+    -istage-FfqXxVj0p56KJ1Qq2KFxkgqf.sample_file="<path_to_samples_to_extract>" \
     -istage-FfqXxVj0p56KJ1Qq2KFxkgqf.snp_file="${projectName}:${dataDir}/cogend.aa.b138.b38.bed" \
     -istage-FfqXxVj0p56KJ1Qq2KFxkgqf.output_prefix="cogend.b138.b38.chr${chr}.Freeze6a.copdgeneALL" \
     -istage-Ffv9YPj0p563F6XkB7ggZ42z.sample_keep="${projectName}:${dataDir}/wgs_aa_kept.samples" \
@@ -44,16 +43,19 @@ done
 
 ```
 
-### PCA
+## Principal Component Analysis (PCA)
+For the genome-wide association study (GWAS), PCA is conducted to include as covariates in the model.
 
-
-```python
+### Genotype overlap between Array and WGS data
+The overlap of SNPs are only analyzed for PCA. The overlap is conducted using PLINK and the docker image available on DockerHub (https://hub.docker.com/r/rtibiocloud/plink)
+```bash
+# This code is run on a DNANexus cloud workstation
 # Merge QCed WGS Genome
-mergeList="fullGenome.txt"
+mergeList="/home/dnanexus/fullGenome.txt"
 for chr in {2..22}; do
     echo "/home/dnanexus/cogend.chr${chr}.Freeze6a.copdgene.aa.extraction.qc.workflow.PASSOnly.DupsRemoved.b37.aa.missing.hw_p_gte_1e-4" >> $mergeList
 done
-dx-docker run --rm -v /home/dnanexus:/home/dnanexus rticode/plink:1.9 plink \
+dx-docker run --rm -v /home/dnanexus:/home/dnanexus rtibiocloud/plink:1.9 plink \
     --bfile /home/dnanexus/cogend.chr1.Freeze6a.copdgene.aa.extraction.qc.workflow.PASSOnly.DupsRemoved.b37.aa.missing.hw_p_gte_1e-4 \
     --merge-list /home/dnanexus/fullGenome.txt \
     --make-bed \
@@ -73,55 +75,56 @@ comm -12 /home/dnanexus/wgs_snps_sort /home/dnanexus/array_snps_sort \
     > /home/dnanexus/overlap_snps
 
 
-
-dx-docker run --rm -v /home/dnanexus:/home/dnanexus rticode/plink:1.9 plink \
+dx-docker run --rm -v /home/dnanexus:/home/dnanexus rtibiocloud/plink:1.9 plink \
     --bfile /home/dnanexus/cogend.genome.Freeze6a.copdgene.aa.extraction.qc.workflow.PASSOnly.DupsRemoved.b37.aa.missing.hw_p_gte_1e-4 \
     --extract /home/dnanexus/overlap_snps \
     --make-bed \
     --out /home/dnanexus/cogend.genome.Freeze6a.copdgene.aa.extraction.qc.workflow.PASSOnly.DupsRemoved.b37.aa.missing.hw_p_gte_1e-4.overlap
-dx-docker run --rm -v /home/dnanexus:/home/dnanexus rticode/plink:1.9 plink \
+dx-docker run --rm -v /home/dnanexus:/home/dnanexus rtibiocloud/plink:1.9 plink \
     --bfile /home/dnanexus/cogend.aa.snp_miss_lte_0.03.hw_p_gte_1e-4.het_hap_miss \
     --extract /home/dnanexus/overlap_snps \
     --make-bed \
     --out /home/dnanexus/cogend.aa.snp_miss_lte_0.03.hw_p_gte_1e-4.het_hap_miss.overlap
 
 
-dx-docker run --rm -v /home/dnanexus:/home/dnanexus rticode/plink:1.9 plink \
+dx-docker run --rm -v /home/dnanexus:/home/dnanexus rtibiocloud/plink:1.9 plink \
     --bfile /home/dnanexus/cogend.genome.Freeze6a.copdgene.aa.extraction.qc.workflow.PASSOnly.DupsRemoved.b37.aa.missing.hw_p_gte_1e-4.overlap \
     --bmerge /home/dnanexus/cogend.aa.snp_miss_lte_0.03.hw_p_gte_1e-4.het_hap_miss.overlap \
     --make-bed \
     --out /home/dnanexus/cogendArray.copdgeneWGS.aa.snp_miss_lte_0.03.hw_p_gte_1e-4.het_hap_miss.overlap
 # Error: 122 variants with 3+ alleles present.
 # For simplicity remove these 122 variants for PCA
-dx-docker run --rm -v /home/dnanexus:/home/dnanexus rticode/plink:1.9 plink \
+dx-docker run --rm -v /home/dnanexus:/home/dnanexus rtibiocloud/plink:1.9 plink \
     --bfile /home/dnanexus/cogend.genome.Freeze6a.copdgene.aa.extraction.qc.workflow.PASSOnly.DupsRemoved.b37.aa.missing.hw_p_gte_1e-4.overlap \
     --exclude /home/dnanexus/cogendArray.copdgeneWGS.aa.snp_miss_lte_0.03.hw_p_gte_1e-4.het_hap_miss.overlap-merge.missnp \
     --make-bed \
     --out /home/dnanexus/cogend.genome.Freeze6a.copdgene.aa.extraction.qc.workflow.PASSOnly.DupsRemoved.b37.aa.missing.hw_p_gte_1e-4.overlap.rm_multi_allelic
-dx-docker run --rm -v /home/dnanexus:/home/dnanexus rticode/plink:1.9 plink \
+dx-docker run --rm -v /home/dnanexus:/home/dnanexus rtibiocloud/plink:1.9 plink \
     --bfile /home/dnanexus/cogend.aa.snp_miss_lte_0.03.hw_p_gte_1e-4.het_hap_miss.overlap \
     --exclude /home/dnanexus/cogendArray.copdgeneWGS.aa.snp_miss_lte_0.03.hw_p_gte_1e-4.het_hap_miss.overlap-merge.missnp \
     --make-bed \
     --out /home/dnanexus/cogend.aa.snp_miss_lte_0.03.hw_p_gte_1e-4.het_hap_miss.overlap.rm_multi_allelic
-dx-docker run --rm -v /home/dnanexus:/home/dnanexus rticode/plink:1.9 plink \
+dx-docker run --rm -v /home/dnanexus:/home/dnanexus rtibiocloud/plink:1.9 plink \
     --bfile /home/dnanexus/cogend.genome.Freeze6a.copdgene.aa.extraction.qc.workflow.PASSOnly.DupsRemoved.b37.aa.missing.hw_p_gte_1e-4.overlap.rm_multi_allelic \
     --bmerge /home/dnanexus/cogend.aa.snp_miss_lte_0.03.hw_p_gte_1e-4.het_hap_miss.overlap.rm_multi_allelic \
     --make-bed \
     --out /home/dnanexus/cogendArray.copdgeneWGS.aa.snp_miss_lte_0.03.hw_p_gte_1e-4.het_hap_miss.overlap.rm_multi_allelic
 
-
 dx upload /home/dnanexus/cogendArray.copdgeneWGS.aa.snp_miss_lte_0.03.hw_p_gte_1e-4.het_hap_miss.overlap.rm_multi_allelic.*
-    
-# LD Prune
+```
+
+### LD Prune
+Linkage Disequilibrium (LD) pruning is conducted using PLINK via its Docker image on DockerHub (https://hub.docker.com/r/rtibiocloud/plink).
+
+```bash
 for chr in {1..22}; do
     echo $chr
-    dx-docker run --rm -v /home/dnanexus:/home/dnanexus rticode/plink:1.9 plink \
+    dx-docker run --rm -v /home/dnanexus:/home/dnanexus rtibiocloud/plink:1.9 plink \
         --bfile /home/dnanexus/cogendArray.copdgeneWGS.aa.snp_miss_lte_0.03.hw_p_gte_1e-4.het_hap_miss.overlap.rm_multi_allelic \
         --indep-pairwise 50 5 0.5 \
         --out /home/dnanexus/cogendArray.copdgeneWGS.chr${chr}.aa.snp_miss_lte_0.03.hw_p_gte_1e-4.het_hap_miss.overlap.rm_multi_allelic.LDprune \
         --chr $chr
 done
- 
 
 # Merge prune.in lists
 cat /home/dnanexus/cogendArray.copdgeneWGS.chr*.aa.snp_miss_lte_0.03.hw_p_gte_1e-4.het_hap_miss.overlap.rm_multi_allelic.LDprune*.prune.in > \
@@ -133,10 +136,13 @@ dx-docker run --rm -v /home/dnanexus:/home/dnanexus rticode/plink:1.9 plink \
     --make-bed \
     --out /home/dnanexus/cogendArray.copdgeneWGS.aa.snp_miss_lte_0.03.hw_p_gte_1e-4.het_hap_miss.overlap.rm_multi_allelic.LDprune
 
-
 dx upload /home/dnanexus/cogendArray.copdgeneWGS.aa.snp_miss_lte_0.03.hw_p_gte_1e-4.het_hap_miss.overlap.rm_multi_allelic.LDprune.*
-    
-# Run PCA
+```
+
+### Run PCA
+Run PCA using PLINK via its Docker image on Dockerhub (https://hub.docker.com/r/rtibiocloud/plink).
+
+```bash
 dx-docker run --rm -v /home/dnanexus:/home/dnanexus rticode/plink:1.9 plink \
     --bfile /home/dnanexus/cogendArray.copdgeneWGS.aa.snp_miss_lte_0.03.hw_p_gte_1e-4.het_hap_miss.overlap.rm_multi_allelic.LDprune \
     --pca \
@@ -145,10 +151,10 @@ dx-docker run --rm -v /home/dnanexus:/home/dnanexus rticode/plink:1.9 plink \
 dx upload /home/dnanexus/cogendArray.copdgeneWGS.aa.snp_miss_lte_0.03.hw_p_gte_1e-4.het_hap_miss.overlap.rm_multi_allelic.LDprune.pca.*
 ```
 
+
 ## Phasing COGEND array and COPDGene WGS data seprately
 
 ### Run Phasing App
-
 
 ```python
 dx cd $phasingOutputDir
@@ -165,10 +171,7 @@ dx run /Analyses/COPD_correlation/shapeit2 \
 done
 ```
 
-### Merge phased data 
-
-## Imputation
-
+### Merge phased data and Impute
 
 ```python
 dx cd $mergeOutputDir

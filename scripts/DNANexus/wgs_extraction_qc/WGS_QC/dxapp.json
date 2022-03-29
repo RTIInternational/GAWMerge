@@ -1,0 +1,108 @@
+{
+  "name": "WGS_QC",
+  "title": "Quality control of the Variants extracted from WGS cohort",
+  "summary": "This conducted quality control (QC) for a specific chromosome of extracted WGS data.",
+  "dxapi": "1.0.0",
+  "inputSpec": [
+    {
+      "name": "vcf_file",
+      "label": "VCF file of the WGS data",
+      "help": "",
+      "class": "file",
+      "patterns": ["*"],
+      "optional": false
+    },
+    {
+      "name": "sample_keep",
+      "label": "samples to keep in the dataset",
+      "help": "",
+      "class": "file",
+      "patterns": ["*"],
+      "optional": false
+    },
+    {
+      "name": "chr",
+      "label": "chromosome",
+      "help": "",
+      "class": "string",
+      "patterns": ["*"],
+      "optional": false
+    },
+    {
+      "name": "output_prefix",
+      "label": "prefix for all output files",
+      "help": "",
+      "class": "string",
+      "patterns": ["*"],
+      "optional": false
+    },
+    {
+      "name": "b38_SNPs",
+      "label": "file to convert b38 SNPs",
+      "help": "",
+      "class": "file",
+      "patterns": ["*"],
+      "optional": false
+    },
+    {
+      "name": "b37_chromosomes",
+      "label": "b37 annotated chromosomes file",
+      "help": "",
+      "class": "file",
+      "patterns": ["*"],
+      "optional": false
+    },
+    {
+      "name": "b37_positions",
+      "label": "b37 annotated positions file",
+      "help": "",
+      "class": "file",
+      "patterns": ["*"],
+      "optional": false
+    },
+    {
+      "name": "b37_rsID",
+      "label": "b37 annotated rsID file",
+      "help": "",
+      "class": "file",
+      "patterns": ["*"],
+      "optional": false
+    }
+  ],
+  "outputSpec": [
+    {
+      "name": "qc",
+      "help": "",
+      "class": "array:file",
+      "patterns": ["*"]
+    }
+  ],
+  "runSpec": {
+    "interpreter": "bash",
+    "timeoutPolicy": {
+      "*": {
+        "hours": 24
+      }
+    },
+    "distribution": "Ubuntu",
+    "release": "16.04",
+    "version": "0",
+    "file": "src/code.sh"
+  },
+  "access": {
+    "network": [
+      "*"
+    ],
+    "project": "CONTRIBUTE"
+  },
+  "ignoreReuse": false,
+  "regionalOptions": {
+    "aws:us-east-1": {
+      "systemRequirements": {
+        "*": {
+          "instanceType": "mem1_ssd1_x4"
+        }
+      }
+    }
+  }
+}
