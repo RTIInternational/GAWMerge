@@ -155,7 +155,7 @@ dx upload /home/dnanexus/cogendArray.copdgeneWGS.aa.snp_miss_lte_0.03.hw_p_gte_1
 ## Phasing COGEND array and COPDGene WGS data seprately
 
 ### Run Phasing App
-
+Please see phasing app documentation (https://github.com/RTIInternational/GAWMerge/tree/main/scripts/DNANexus/shapeit2) for more information.
 ```python
 dx cd $phasingOutputDir
 for chr in {1..22}
@@ -172,7 +172,7 @@ done
 ```
 
 ## Merge phased data and Impute
-
+The following calls the 'merging_imputation' workflow () which calls the workflows 'wgs_array_merging' (merges phaed WGS and array genotyping datasets) and 'minimac4' (imputation to 1000 genomes phase 3). Please see the merging and imputation workflow documentation (https://github.com/RTIInternational/GAWMerge/tree/main/scripts/DNANexus/merging_imputation) along with sub workflow documentation for merging (https://github.com/RTIInternational/GAWMerge/tree/main/scripts/DNANexus/merging_imputation/wgs_array_merging) and imputation (https://github.com/RTIInternational/GAWMerge/tree/main/scripts/DNANexus/merging_imputation/minimac4).
 ```python
 dx cd $mergeOutputDir
 for chr in {1..22}
@@ -192,8 +192,7 @@ done
 ## Re-imputation
 
 ### Filter by Empirical R2
-
-
+The filtering of Empirical R-squared (R2) is to filter out the genotyped variants which were imputed differently from its genotype, based on the empirical R-squared. The following code run the 
 ```python
 dx cd $empE2OutputDir
 for chr in {1..22};do
@@ -208,8 +207,7 @@ done
 ```
 
 ### Rerun imputation with bad Empirical R2 SNPs removed
-
-
+Run the minimac4 workflow to rerun imputation without the bad empirical r-squared variants removed.
 ```python
 dx cd $reImputationOutputDir
 for chr in {1..22}; do
@@ -223,8 +221,7 @@ done
 ```
 
 ## Association test with rvTest
-
-
+Conduct association analysis with rvTest (Bioinformatics 2016 32: 1423-1426. doi:10.1093/bioinformatics/btw079) with appropriate covariates.
 ```python
 dx cd $rvTest2OutputDir
 
@@ -244,8 +241,7 @@ done
 ## post association filtering
 
 ### Calculate Rsq for WGS and array data separately for this new imputed data
-
-
+Calculate the R-squares for WGS and array data separately for the newly imputed data using the 'Rsq_Calc' workflow.
 ```python
 dx cd $rsqReimputeOutputDir
 
@@ -259,8 +255,10 @@ done
 ```
 
 ### Filter results with MAF, R2 and Rsq_diff cutoffs
-
-
+The association results are filter to only those variants that meet the following metrics:
+- MAF > 0.01
+- R-square > 0.8
+- R-square Difference < 0.1
 ```python
 dx cd $filteringFinalOutputDir
 
@@ -278,8 +276,7 @@ done
 ```
 
 ### Plotting
-
-
+Plot the association for manhattan and qq-plots.
 ```python
 dx cd $plotFinalOutputDir
 
