@@ -1,7 +1,7 @@
 # GAWMerge
 Genotyping Array-WGS Merge, GAWMerge, is a protocol to combine genotypes from arrays and whole genome sequencing (WGS) in genome-wide association study (GWAS). One application of the GAWMerge protocol is to use WGS data as public controls for new GWAS with case-only cohorts. Therefor, WGS data from diverse samples like (TOPMed) can be used as public control with existing array genotyped data in GWAS.
 
-The protocol has been implemented on the DNANexus platform (https://www.dnanexus.com/) along with the BioData Catalyst ecosystem (https://biodatacatalyst.nhlbi.nih.gov/).
+The protocol has been implemented on the [DNANexus platform](https://www.dnanexus.com/) along with the [BioData Catalyst ecosystem](https://biodatacatalyst.nhlbi.nih.gov/).
 
 
 ## Citation
