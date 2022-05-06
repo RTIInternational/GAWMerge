@@ -6,6 +6,5 @@ The protocol has been implemented on the [DNANexus platform](https://www.dnanexu
 
 ## Citation
 Please cite the below manuscript for use of the GAWMerge protocol.
-Expanding the pool of public controls for GWAS via a method for combining genotypes from arrays and sequencing
-Ravi Mathur, Fang Fang, Nathan Gaddis, Dana B. Hancock, Michael H. Cho, John E. Hokanson, Laura J. Bierut, Sharon M. Lutz, Kendra Young, Albert V. Smith, NHLBI Trans-Omics for Precision Medicine (TOPMed) Consortium, Edwin K. Silverman, Grier P. Page, Eric O. Johnson
-bioRxiv 2021.10.19.464854; https://www.biorxiv.org/content/10.1101/2021.10.19.464854v1
+
+Mathur et al., Expanding the pool of public controls for GWAS via a method for combining genotypes from arrays and sequencing, bioRxiv 2021.10.19.464854; https://www.biorxiv.org/content/10.1101/2021.10.19.464854v1
