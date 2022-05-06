@@ -1,4 +1,4 @@
-d # Identifying Public Controls on NHLBI BioData Catalyst
+# Identifying Public Controls on NHLBI BioData Catalyst
 
 Matching public controls to case-only cohorts is a standard epigemiologic approach. With this approach the analysis is able to control confounding factors and potentially cut costs. Successful application of public controls in genome-wide association studies (GWAS) requires (1) consistency in ancestry and substantial overlap in the genotyped variants between datasets.
 
@@ -6,7 +6,7 @@ The National Heart, Lung, and Blood Institute (NHLBI) funded Trans-omics for Pre
 
 ## Matching Public Controls
 
-BioData Catalyst is a NHLBI funded cloud-based ecosystem, which hosts the NHLBI TOPMed data. To match public controls from TOPMed to user provided case-only data, the GAWMerge protocol has been tested matching towards the TOPMed harmonized data. The TOPMed Consortium has harmonized over 100 variables related to heart, lung, blood, and sleep domains [ref]. The data for these variables are avilable on dbGaP and BioData Catalyst.
+BioData Catalyst is a NHLBI funded cloud-based ecosystem, which hosts the NHLBI TOPMed data. To match public controls from TOPMed to user provided case-only data, the GAWMerge protocol has been tested matching towards the TOPMed harmonized data. The TOPMed Consortium has harmonized over 100 variables related to heart, lung, blood, and sleep domains (Stilp et al. PMID: [33871317](https://pubmed.ncbi.nlm.nih.gov/33861317/)). The data for these variables are available on dbGaP and BioData Catalyst.
 
 On BioData Catalyst the harmonized variables are accessed via:
 - BioData Catalyst Powered by Gen3
