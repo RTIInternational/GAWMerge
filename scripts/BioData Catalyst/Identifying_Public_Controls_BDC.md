@@ -25,4 +25,4 @@ The clinical data for these samples are easily exported to BioData Catalyst Powe
 
 
 ### Accessing Harmonized Variables - PIC-SURE
-BioData Catalyst Powered by PIC-SURE allows researchers to explore both phenotypic and genetic data with interactive search and visualizations. The PIC-SURE data was interacted with the API within the BioData Catalyst Powered by Seven Bridges platform. A GUI interface is also available for PIC-SURE (more information available on ![gitbook](https://bdcatalyst.gitbook.io/biodata-catalyst-documentation/written-documentation/getting-started/explore-available-data/pic-sure-for-biodata-catalyst-user-guide).
+BioData Catalyst Powered by PIC-SURE allows researchers to explore both phenotypic and genetic data with interactive search and visualizations. The PIC-SURE data was interacted with the API within the BioData Catalyst Powered by Seven Bridges platform. A GUI interface is also available for PIC-SURE (more information available on [gitbook](https://bdcatalyst.gitbook.io/biodata-catalyst-documentation/written-documentation/getting-started/explore-available-data/pic-sure-for-biodata-catalyst-user-guide).
