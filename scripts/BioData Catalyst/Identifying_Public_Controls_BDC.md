@@ -1,4 +1,4 @@
- # Identifying Public Controls on NHLBI BioData Catalyst
+d # Identifying Public Controls on NHLBI BioData Catalyst
 
 Matching public controls to case-only cohorts is a standard epigemiologic approach. With this approach the analysis is able to control confounding factors and potentially cut costs. Successful application of public controls in genome-wide association studies (GWAS) requires (1) consistency in ancestry and substantial overlap in the genotyped variants between datasets.
 
@@ -21,5 +21,8 @@ Using these filters shows that a total of 9,994 samples are selected, with their
 
 The clinical data for these samples are easily exported to BioData Catalyst Powered by Seven Bridges using the 'Export All to Seven Bridges' button.
 
+![BioData Catalyst Powered by Gen3](https://github.com/RTIInternational/GAWMerge/blob/main/scripts/BioData%20Catalyst/Screenshots/BDC_Gen3_search.PNG)
+
+
 ### Accessing Harmonized Variables - PIC-SURE
-BioData Catalyst Powered by PIC-SURE allows researchers to explore both phenotypic and genetic data with interactive search and visualizations. The PIC-SURE data was interacted with the API within the BioData Catalyst Powered by Seven Bridges platform. A GUI interface is also available for PIC-SURE (more information available at https://bdcatalyst.gitbook.io/biodata-catalyst-documentation/written-documentation/getting-started/explore-available-data/pic-sure-for-biodata-catalyst-user-guide).
+BioData Catalyst Powered by PIC-SURE allows researchers to explore both phenotypic and genetic data with interactive search and visualizations. The PIC-SURE data was interacted with the API within the BioData Catalyst Powered by Seven Bridges platform. A GUI interface is also available for PIC-SURE (more information available on ![gitbook](https://bdcatalyst.gitbook.io/biodata-catalyst-documentation/written-documentation/getting-started/explore-available-data/pic-sure-for-biodata-catalyst-user-guide).
