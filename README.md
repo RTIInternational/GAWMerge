@@ -2,7 +2,7 @@
 Genotyping Array-WGS Merge, GAWMerge, is a protocol to combine genotypes from arrays and whole genome sequencing (WGS) in genome-wide association study (GWAS). One application of the GAWMerge protocol is to use WGS data as public controls for new GWAS with case-only cohorts. Therefore, WGS data from diverse samples like (TOPMed) can be used as public control with existing array genotyped data in GWAS.
 
 The following flow chart shows the 8 steps taken with GAWMerge including (1) matching key features, (2) extracting overlap SNPs, (3) Quality Control (QC), (4) Phasing, (5) Imputation, (6) Re-imputation after removing poorly imputed SNPs, (7) association test, and (8) filtering of results.
-https://github.com/RTIInternational/GAWMerge/blob/main/scripts/GAWMerge%20Flowchart.jpg
+![GAWMerge Flowchart] (https://github.com/RTIInternational/GAWMerge/blob/main/scripts/GAWMerge%20Flowchart.jpg)
 
 The protocol has been implemented on the [DNANexus platform](https://www.dnanexus.com/) along with the [BioData Catalyst ecosystem](https://biodatacatalyst.nhlbi.nih.gov/). The [DNANexus protocol](https://github.com/RTIInternational/GAWMerge/blob/main/scripts/DNANexus/GAWMerge_protocol.md) is implemented using DNANexus apps and workflows. The [BioData Catalyst protocol](https://github.com/RTIInternational/GAWMerge/blob/main/scripts/BioData%20Catalyst/Identifying_Public_Controls_BDC.md) is implemented using BioData Catalyst Powered by Gen3, BioData Catalyst Powered by PIC-SURE, and BioData Catalyst Powered by Seven Bridges. Both protocol utilize docker images within the RTI International [biocloud dockerhub](https://hub.docker.com/u/rtibiocloud) resource.
 
