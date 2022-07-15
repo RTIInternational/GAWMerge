@@ -19,5 +19,5 @@ Please cite the below manuscript for use of the GAWMerge protocol.
 
 Mathur et al., Expanding the pool of public controls for GWAS via a method for combining genotypes from arrays and sequencing, bioRxiv 2021.10.19.464854; https://www.biorxiv.org/content/10.1101/2021.10.19.464854v1
 
-v1.0: [![DOI](https://zenodo.org/badge/399227941.svg)](https://zenodo.org/badge/latestdoi/399227941)
+[![DOI](https://zenodo.org/badge/399227941.svg)](https://zenodo.org/badge/latestdoi/399227941)
 
